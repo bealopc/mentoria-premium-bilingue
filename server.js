@@ -6,6 +6,7 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 const ALLOWED_LANGS = ['es', 'en'];
+const DB_PATH = path.join(__dirname, 'database.json');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -14,7 +15,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Cargar Base de Datos
-const getData = () => JSON.parse(fs.readFileSync('./database.json', 'utf8'));
+const getData = () => JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
 
 const sanitizeToPlainText = (raw) => {
   if (typeof raw !== 'string') return '';
@@ -108,7 +109,7 @@ app.post('/api/update', (req, res) => {
     const sanitizedValue = sanitizeToPlainText(value);
     db.translations[key][lang] = sanitizedValue;
 
-    fs.writeFileSync('./database.json', JSON.stringify(db, null, 2));
+    fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
 
     return res.json({ success: true });
   } catch (error) {
