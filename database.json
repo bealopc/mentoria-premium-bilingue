@@ -1,0 +1,82 @@
+{
+  "translations": {
+    "hero_title": {
+      "es": "Mentoría Premium para Escalar con Claridad",
+      "en": "Premium Mentorship to Scale with Clarity"
+    },
+    "hero_desc": {
+      "es": "Acompañamiento estratégico 1:1 para profesionales y founders que buscan resultados medibles.",
+      "en": "Strategic 1:1 guidance for professionals and founders who want measurable outcomes."
+    },
+    "cta_text": {
+      "es": "Reservar sesión estratégica",
+      "en": "Book a strategy session"
+    },
+    "nav_home": {
+      "es": "Inicio",
+      "en": "Home"
+    },
+    "nav_programs": {
+      "es": "Programas",
+      "en": "Programs"
+    },
+    "nav_contact": {
+      "es": "Contacto",
+      "en": "Contact"
+    },
+    "section_courses_title": {
+      "es": "Programas de Mentoría",
+      "en": "Mentorship Programs"
+    },
+    "footer_note": {
+      "es": "Mentoría Premium © 2026. Todos los derechos reservados.",
+      "en": "Premium Mentorship © 2026. All rights reserved."
+    }
+  },
+  "settings": {
+    "primary_color": "#8A5A3B",
+    "secondary_color": "#2F2A26",
+    "font_family": "Lato, sans-serif"
+  },
+  "courses": [
+    {
+      "id": "clarity-session",
+      "title": {
+        "es": "Clarity Session",
+        "en": "Clarity Session"
+      },
+      "price": 190,
+      "currency": "USD",
+      "tagline": {
+        "es": "Diagnóstico premium + plan de acción de 30 días.",
+        "en": "Premium diagnostic + 30-day action roadmap."
+      }
+    },
+    {
+      "id": "growth-sprint",
+      "title": {
+        "es": "Growth Sprint (6 semanas)",
+        "en": "Growth Sprint (6 weeks)"
+      },
+      "price": 890,
+      "currency": "USD",
+      "tagline": {
+        "es": "Mentoría semanal enfocada en ejecución, foco y métricas.",
+        "en": "Weekly mentorship focused on execution, focus, and metrics."
+      }
+    },
+    {
+      "id": "elite-advisory",
+      "title": {
+        "es": "Elite Advisory 1:1",
+        "en": "Elite 1:1 Advisory"
+      },
+      "price": 2400,
+      "currency": "USD",
+      "tagline": {
+        "es": "Acompañamiento de alto impacto para líderes y fundadores.",
+        "en": "High-impact support for leaders and founders."
+      }
+    }
+  ]
+}

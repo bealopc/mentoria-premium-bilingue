@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mentoría Premium</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --primary-color: <%= settings.primary_color %>;
+      --secondary-color: <%= settings.secondary_color %>;
+      --body-font: <%= settings.font_family %>;
+      --bg-warm: #f7f3ee;
+      --card-bg: #fffdfb;
+    }
+
+    body {
+      background: var(--bg-warm);
+      color: var(--secondary-color);
+      font-family: var(--body-font);
+    }
+
+    .title-font {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .editable {
+      border: 1px dashed rgba(138, 90, 59, 0.35);
+      border-radius: 0.375rem;
+      padding: 0.1rem 0.2rem;
+      transition: border-color .2s ease, background-color .2s ease;
+    }
+
+    .editable:hover {
+      border-color: rgba(138, 90, 59, 0.65);
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .editable:focus {
+      outline: none;
+      border-color: rgba(138, 90, 59, 0.95);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .toast {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      padding: .5rem .75rem;
+      border-radius: .5rem;
+      color: #fff;
+      font-size: .75rem;
+      opacity: 0;
+      transition: opacity .25s ease;
+      pointer-events: none;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <% const adminQuery = isAdmin ? '?admin=true' : ''; %>
+
+  <header class="border-b border-stone-200">
+    <nav class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+      <a href="/<%= lang %><%= adminQuery %>" class="title-font text-2xl" style="color: var(--primary-color);">Mentoría Premium</a>
+
+      <ul class="flex items-center gap-6 text-sm md:text-base">
+        <li>
+          <a href="/<%= lang %><%= adminQuery %>">
+            <span data-key="nav_home" class="<%= isAdmin ? 'editable' : '' %>" <%= isAdmin ? 'contenteditable="true" onfocus="cacheOriginal(event)" onblur="handleEditableBlur(event)"' : '' %>><%= t.nav_home %></span>
+          </a>
+        </li>
+        <li>
+          <a href="#programs">
+            <span data-key="nav_programs" class="<%= isAdmin ? 'editable' : '' %>" <%= isAdmin ? 'contenteditable="true" onfocus="cacheOriginal(event)" onblur="handleEditableBlur(event)"' : '' %>><%= t.nav_programs %></span>
+          </a>
+        </li>
+        <li>
+          <a href="#contact">
+            <span data-key="nav_contact" class="<%= isAdmin ? 'editable' : '' %>" <%= isAdmin ? 'contenteditable="true" onfocus="cacheOriginal(event)" onblur="handleEditableBlur(event)"' : '' %>><%= t.nav_contact %></span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <div class="max-w-3xl">
+        <h1 id="hero_title" data-key="hero_title" class="title-font text-4xl md:text-6xl leading-tight mb-6 <%= isAdmin ? 'editable' : '' %>" <%= isAdmin ? 'contenteditable="true" onfocus="cacheOriginal(event)" onblur="handleEditableBlur(event)"' : '' %>><%= t.hero_title %></h1>
+
+        <p id="hero_desc" data-key="hero_desc" class="text-lg md:text-xl text-stone-700 mb-8 <%= isAdmin ? 'editable' : '' %>" <%= isAdmin ? 'contenteditable="true" onfocus="cacheOriginal(event)" onblur="handleEditableBlur(event)"' : '' %>><%= t.hero_desc %></p>
+
+        <button id="cta_text" data-key="cta_text" class="px-6 py-3 rounded-full text-white font-semibold shadow-sm <%= isAdmin ? 'editable' : '' %>" style="background-color: var(--primary-color);" <%= isAdmin ? 'contenteditable="true" onfocus="cacheOriginal(event)" onblur="handleEditableBlur(event)"' : '' %>><%= t.cta_text %></button>
+      </div>
+    </section>
+
+    <section id="programs" class="max-w-6xl mx-auto px-6 pb-16">
+      <h2 data-key="section_courses_title" class="title-font text-3xl md:text-4xl mb-8 <%= isAdmin ? 'editable' : '' %>" <%= isAdmin ? 'contenteditable="true" onfocus="cacheOriginal(event)" onblur="handleEditableBlur(event)"' : '' %>><%= t.section_courses_title %></h2>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <% courses.forEach((course) => {
+          const title = (course.title && typeof course.title === 'object') ? (course.title[lang] || course.title.es || '') : course.title;
+          const tagline = (course.tagline && typeof course.tagline === 'object') ? (course.tagline[lang] || course.tagline.es || '') : course.tagline;
+        %>
+          <article class="rounded-2xl border border-stone-200 p-6" style="background-color: var(--card-bg);">
+            <h3 class="title-font text-2xl mb-3"><%= title %></h3>
+            <p class="text-stone-600 mb-5"><%= tagline %></p>
+            <p class="text-xl font-bold" style="color: var(--primary-color);"><%= course.price %> <%= course.currency %></p>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="border-t border-stone-200">
+    <div class="max-w-6xl mx-auto px-6 py-8 text-sm text-stone-600">
+      <span data-key="footer_note" class="<%= isAdmin ? 'editable' : '' %>" <%= isAdmin ? 'contenteditable="true" onfocus="cacheOriginal(event)" onblur="handleEditableBlur(event)"' : '' %>><%= t.footer_note %></span>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const lang = '<%= lang %>';
+    const isAdmin = <%= isAdmin ? 'true' : 'false' %>;
+
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.style.backgroundColor = isError ? '#7f1d1d' : '#1f2937';
+      toast.textContent = message;
+      toast.style.opacity = '0.95';
+      setTimeout(() => {
+        toast.style.opacity = '0';
+      }, 1500);
+    }
+
+    async function saveChange(key, value) {
+      try {
+        const response = await fetch('/api/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key, lang, value })
+        });
+
+        const data = await response.json();
+        if (!response.ok || !data.success) {
+          const msg = (data && data.error) ? data.error : 'Error al guardar';
+          console.error(msg);
+          showToast(msg, true);
+          return false;
+        }
+
+        showToast(lang === 'es' ? 'Guardado automático' : 'Auto-saved');
+        return true;
+      } catch (err) {
+        console.error(err);
+        showToast(lang === 'es' ? 'Error de red' : 'Network error', true);
+        return false;
+      }
+    }
+
+    function cacheOriginal(event) {
+      if (!isAdmin) return;
+      const el = event.target;
+      el.dataset.original = (el.innerText || '').trim();
+    }
+
+    async function handleEditableBlur(event) {
+      if (!isAdmin) return;
+
+      const el = event.target;
+      const key = el.dataset.key;
+      if (!key) return;
+
+      const original = (el.dataset.original || '').trim();
+      const current = (el.innerText || '').trim();
+
+      if (current === original) {
+        return;
+      }
+
+      const ok = await saveChange(key, current);
+      if (ok) {
+        el.dataset.original = current;
+      } else {
+        el.innerText = original;
+      }
+    }
+  </script>
+</body>
+</html>
